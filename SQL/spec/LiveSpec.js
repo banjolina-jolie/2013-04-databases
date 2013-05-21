@@ -33,7 +33,7 @@ describe("Persistent Node Chat Server", function() {
     request({method: "POST",
              uri: "http://127.0.0.1:8080/classes/room1",
              form: {userId: "Valjean",
-                    message: "In mercy's name, three days is all I need."}
+                    content: "In mercy's name, three days is all I need."}
             },
             function(error, response, body) {
               /* Now if we look in the database, we should find the

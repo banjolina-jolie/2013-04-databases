@@ -17,13 +17,15 @@ var receiveIt = function(){
 var postIt = function(userMsg){
   $.ajax('http://127.0.0.1:8080/classes/room1', {
     type: "POST",
-    contentType: 'text/plain',
-    data: JSON.stringify(userMsg),
+    // contentType: 'application/json',
+    //data: JSON.stringify(userMsg),
+    data: userMsg,
     success: function(data){
       console.log("Nice POST.");
     },
-    error: function(){
-      console.log("POST request failed.");
+    error: function(err){
+      console.log('what?');
+      console.log("POST request failed.", err);
     }
   });
 };
@@ -34,9 +36,12 @@ var postIt = function(userMsg){
 
 var displayMessages = function(data) {
   for(var i = 0; i < data.length; i++){
-    $litag = $('<li class = "chatMessage"></li>');
-    $litag.html(data[i].content);
-    $('#userMessages').append($litag);
+    if(!memory.hasOwnProperty(data[i].content)){
+      memory[data[i].content] = true;
+      $litag = $('<li class = "chatMessage"></li>');
+      $litag.html(data[i].content);
+      $('#userMessages').append($litag);
+    }
   }
 };
 

@@ -55,16 +55,21 @@ dbConnection.connect();
     }
   }
   else if(request.method === 'POST'){
-    response.writeHead(302, headers); // Doesn't happen after 'end' event (async)
+    response.writeHead(200, headers); // Doesn't happen after 'end' event (async)
     console.log("---------------Nice Post--------------");
     var body = '';
     request.on('data', function(data){
       body += data;
     });
     request.on('end', function(){
+      console.log(body);
+      //var qsParsedBody = JSON.parse(body);
       var qsParsedBody = querystring.parse(body);
-      dbConnection.query("INSERT INTO messages (content, userId) VALUES (?, ?);", [qsParsedBody.message, qsParsedBody.userId], function(){
-        response.end('\n');
+      console.log('body!!!!! ', qsParsedBody);
+      dbConnection.query("INSERT INTO messages (content, userId) VALUES (?, ?);", [qsParsedBody.content, qsParsedBody.userId], function(err, results, fields){
+        if (err) throw err;
+        console.log('ending the request');
+        response.end(JSON.stringify(qsParsedBody));
       });
     });
   }
