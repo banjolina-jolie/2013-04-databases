@@ -60,7 +60,7 @@ dbConnection.connect();
       body += data;
     });
     request.on('end', function(){
-      var qsParsedBody = querystring.parse(message);
+      var qsParsedBody = querystring.parse(body);
       dbConnection.query("INSERT INTO messages (content, userId) VALUES (?, ?);", [qsParsedBody.message, qsParsedBody.userId], function(){
         console.log(arguments);
         response.end('\n');
