@@ -43,6 +43,7 @@ dbConnection.connect();
   }
   else if(request.method === 'GET'){
     if(request.url.indexOf('classes')!==-1){
+      // console.log('getting...');
       dbConnection.query('SELECT * FROM messages', function(err, results){
         response.writeHead(200, headers);
         response.end(JSON.stringify(results));
@@ -55,6 +56,7 @@ dbConnection.connect();
   }
   else if(request.method === 'POST'){
     response.writeHead(302, headers); // Doesn't happen after 'end' event (async)
+    console.log("---------------Nice Post--------------");
     var body = '';
     request.on('data', function(data){
       body += data;
@@ -62,7 +64,6 @@ dbConnection.connect();
     request.on('end', function(){
       var qsParsedBody = querystring.parse(body);
       dbConnection.query("INSERT INTO messages (content, userId) VALUES (?, ?);", [qsParsedBody.message, qsParsedBody.userId], function(){
-        console.log(arguments);
         response.end('\n');
       });
     });
