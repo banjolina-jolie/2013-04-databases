@@ -52,7 +52,7 @@ dbConnection.connect();
       response.writeHead(404, headers);
       response.end();
     }
-    console.log(request.url);
+    console.log("request.url: ",request.url);
 
   }
   else if(request.method === 'POST'){
@@ -61,13 +61,13 @@ dbConnection.connect();
     request.on('data', function(data){
       message += data;
     });
-    console.log(message);
+    console.log("message (ln 64 req-han): ",message);
     request.on('end', function(){
       //JSON.parse(message);
       var whatIwant = querystring.parse(message);
-      console.log(whatIwant);
+      console.log("qstring.parse(msg): ", whatIwant, message);
       dbConnection.query("INSERT INTO messages (content, userId) VALUES (?, ?);", [whatIwant.message, whatIwant.userId], function(){
-        console.log(arguments);
+        // console.log(arguments);
         response.end('\n');
       });
     });
