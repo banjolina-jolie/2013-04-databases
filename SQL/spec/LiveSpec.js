@@ -46,7 +46,6 @@ describe("Persistent Node Chat Server", function() {
                * here depend on the schema you design, so I'll leave
                * them up to you. */
               dbConnection.query( queryString, queryArgs,
-              // dbConnection.query("INSERT into messages (content, userId) VALUES ('asdf', 'TEST');",
                 function(err, results, fields) {
                   console.log('results: ', results);
                   // Should have one result:
@@ -56,8 +55,8 @@ describe("Persistent Node Chat Server", function() {
                   /* TODO: You will need to change these tests if the
                    * column names in your schema are different from
                    * mine! */
-
-                  done();
+                  console.log(done);
+                  done();  // called to sort out asynchronous nature of test.
                 });
             });
   });

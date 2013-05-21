@@ -52,29 +52,21 @@ dbConnection.connect();
       response.writeHead(404, headers);
       response.end();
     }
-    console.log(request.url);
-
   }
   else if(request.method === 'POST'){
     response.writeHead(302, headers); // Doesn't happen after 'end' event (async)
-    var message = '';
+    var body = '';
     request.on('data', function(data){
-      message += data;
+      body += data;
     });
-    console.log(message);
     request.on('end', function(){
-      //JSON.parse(message);
-      var whatIwant = querystring.parse(message);
-      console.log(whatIwant);
-      dbConnection.query("INSERT INTO messages (content, userId) VALUES (?, ?);", [whatIwant.message, whatIwant.userId], function(){
+      var qsParsedBody = querystring.parse(message);
+      dbConnection.query("INSERT INTO messages (content, userId) VALUES (?, ?);", [qsParsedBody.message, qsParsedBody.userId], function(){
         console.log(arguments);
         response.end('\n');
       });
     });
   }
-
 };
 
 //dbConnection.end();
-
-
