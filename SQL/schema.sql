@@ -2,7 +2,11 @@ CREATE DATABASE chat;
 
 USE chat;
 
-CREATE TABLE messages (
+	CREATE TABLE `messages` (
+  `id` TINYINT NULL AUTO_INCREMENT DEFAULT NULL,
+  `content` varchar(100),
+  `userId` VARCHAR(255),
+  PRIMARY KEY (`id`)
 );
 
 
