@@ -49,18 +49,14 @@ var handleRequest = function(request, response) {
     }
   }
   else if(request.method === 'POST'){
-    console.log('here');
     response.writeHead(200, headers);
     var body = '';
     request.on('data', function(data){
       body += data;
     });
     request.on('end', function(){
-      console.log("body: ",body);
       var qsParsedBody = querystring.parse(body);
-      console.log(qsParsedBody);
-      // var newMessage = Message.build(qsParsedBody);
-      var newMessage = Message.build({userName: qsParsedBody.userId, content: qsParsedBody.content});
+      var newMessage = Message.build({userName: qsParsedBody.userName, content: qsParsedBody.content});
       newMessage.save().success(function(message){
         response.end(JSON.stringify());
       });

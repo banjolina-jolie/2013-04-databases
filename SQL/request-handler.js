@@ -65,7 +65,7 @@ dbConnection.connect();
       //var qsParsedBody = JSON.parse(body);
       var qsParsedBody = querystring.parse(body);
       console.log('body!!!!! ', qsParsedBody);
-      dbConnection.query("INSERT INTO messages (content, userId) VALUES (?, ?);", [qsParsedBody.content, qsParsedBody.userId], function(err, results, fields){
+      dbConnection.query("INSERT INTO messages (content, userName) VALUES (?, ?);", [qsParsedBody.content, qsParsedBody.userName], function(err, results, fields){
         if (err) throw err;
         console.log('ending the request');
         response.end(JSON.stringify(qsParsedBody));
