@@ -43,7 +43,6 @@ dbConnection.connect();
   }
   else if(request.method === 'GET'){
     if(request.url.indexOf('classes')!==-1){
-      // console.log('getting...');
       dbConnection.query('SELECT * FROM messages', function(err, results){
         response.writeHead(200, headers);
         response.end(JSON.stringify(results));
